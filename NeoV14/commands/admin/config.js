@@ -1,4 +1,4 @@
-const { SlashCommandBuilder } = require('discord.js')
+const { SlashCommandBuilder, EmbedBuilder } = require('discord.js')
 const { guildPref } = require('../../libs/gdb.js')
 
 module.exports = {
@@ -37,10 +37,18 @@ module.exports = {
             }
 
         }
-
-
     }
 }
 
 async function printOut(interaction, gp) {
+    let embed = new EmbedBuilder()
+        .setTitle('Server Configuration')
+        .setDescription(`The current configuration for this server is:`)
+
+    for (const [key, value] of Object.entries(gp)) {
+        console.log("key:", key, "value", value);
+        embed.addFields({ name: key.toString(), value: value.toString(), inline: true});
+    }
+    
+    return interaction.editReply({ embeds: [embed], ephemeral: true });
 }
