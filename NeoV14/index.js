@@ -1,10 +1,11 @@
 const fs = require('node:fs');
 const Discord = require('discord.js')
 const { Collection, GatewayIntentBits } = require('discord.js');
-const config = require('./jsons/config.json');
-const token = config.devtoken
+const prod = process.env.TOKEN;
+const dev = process.env.DEVTOKEN;
+const token = dev
 
-//disable-formatting
+//nodemon -e js --env-file=.env
 const client = new Discord.Client({
 	disableEveryone: true,
 	failIfNotExists: false,
