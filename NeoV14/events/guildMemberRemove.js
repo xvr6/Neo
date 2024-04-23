@@ -1,5 +1,5 @@
 const config = require("../jsons/config.json")
-const WLPath = /*"../*/`${__dirname}/../../Bungee4/lobby/whitelist.json`
+const WLPath = "../../Bungee4/lobby/whitelist.json"
 const whitelist = require(WLPath)
 const errors = require('../utils/errors.js');
 const {verified} = require('../libs/wldb.js');
