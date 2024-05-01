@@ -14,7 +14,7 @@ module.exports = {
             client.categories.set(dir, categoryFiles)
 
 
-            for (var file of commandFiles) {
+            for (let file of commandFiles) {
                 let command = require(`../commands/${dir}/${file}`);
 
                 commands.push(command.data.toJSON());
