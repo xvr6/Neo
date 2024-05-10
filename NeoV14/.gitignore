@@ -2,3 +2,4 @@
 *.db
 /.vscode
 .env
+package-lock.json
