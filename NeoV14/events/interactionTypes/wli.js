@@ -27,18 +27,16 @@ async function wli(interaction) {
         const conn = new RCON(rconip, rconport, pass);
         conn.connect()
 
-        success = false
+        let dupe = false
         conn.on('auth', async () => {
             conn.send(`whitelist add ${mc.name}`)
             conn.send(`whitelist reload`)
             conn.disconnect()
-        });/*.on('response', (str) => {
-            success = str.includes('Added') // successful if so. Other response is 'already whitelisted', so false
+        }).on('response', (str) => {
+            dupe = str.includes('already') // successful if so. Other response is 'already whitelisted', so false
         }).on('error', (err) => {  
-            console.error(err)
-        }).on('end', () => {
-            console.log("Connection closed.")
-        });*/
+            return errors.noArg(interaction, "The server RCON is currently down, please try again later.", "Server Down!")
+        });
 
 
         let embed = new EmbedBuilder()

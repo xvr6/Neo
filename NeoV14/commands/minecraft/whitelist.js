@@ -4,10 +4,14 @@ const config = require('../../jsons/config.json')
 const errors = require('../../utils/errors.js');
 const { unverified, verified, blacklist } = require('../../libs/wldb.js')
 const { capitalize } = require(`../../utils/functions.js`)
+const RCON = require('rcon')
 
 const { fetchMc, fetchMcUUID } = require("../../utils/mcUtils.js")
 
 const ruleChannel = "697499957799682061"
+const pass = process.env.RCONPASS
+const rconip = 'localhost'
+const rconport = 25575
 
 module.exports = {
 	aliases: ['wl'],
@@ -22,7 +26,17 @@ module.exports = {
 		),
 
 	async run(interaction) {
-		// if (interaction.guild.id != config.myServer) return errors.noArg(interaction, "This can only be used in Xaviers discord.", "Incorrect server.")
+		if (interaction.guild.id != config.myServer) return errors.noArg(interaction, "This can only be used in Xaviers discord.", "Incorrect server.")
+
+		//This code effectively pings the server to check if the RCON system is working.
+		const conn = new RCON(rconip, rconport, pass);
+		conn.connect()
+		conn.on('auth', async () => {
+			conn.disconnect()
+		}).on('error', (err) => { // only happens if the server is down or the password is wrong.
+			return errors.noArg(interaction, "The server RCON is currently down, please try again later.", "Server Down!")
+		});
+
 		//check if user is blacklisted
 		const blUser = (await blacklist.findByPk(interaction.user.id))
 		if (blUser != null) return errors.noArg(interaction, "You are blacklisted from the server.", "Blacklisted!")

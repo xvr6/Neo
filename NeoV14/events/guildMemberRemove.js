@@ -26,8 +26,8 @@ module.exports = {
 		conn.on('auth', async () => {
 			conn.send(`whitelist remove ${currentUser.uuid}`)
 			conn.send(`whitelist reload`)
-		})
-		conn.disconnect()
+			conn.disconnect()
+		});
 		await verified.destroy({ where: { id: member.id } });
 					 
 	}
