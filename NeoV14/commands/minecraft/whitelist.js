@@ -25,7 +25,7 @@ module.exports = {
 		// if (interaction.guild.id != config.myServer) return errors.noArg(interaction, "This can only be used in Xaviers discord.", "Incorrect server.")
 		//check if user is blacklisted
 		const blUser = (await blacklist.findByPk(interaction.user.id))
-		if (blUser != null) return;
+		if (blUser != null) return errors.noArg(interaction, "You are blacklisted from the server.", "Blacklisted!")
 
 		const vUser = (await verified.findByPk(interaction.user.id)); //TODO: change this to check if user is already verified, and prompt them to just change their username with a differnet ocmmand perhaps.
 		if (vUser != null) return errors.noArg(interaction, "For now, you are unable to change your own username. Contact an admin.", "Already whitelisted!")

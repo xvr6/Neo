@@ -20,7 +20,6 @@ async function wli(interaction) {
     if (!unvUser) return;
 
     if (interaction.customId.includes("VERIFY")) { // this is where whitelist happens
-        //TODO: check if balcklisted
         //Add the role!
         interaction.member.roles.add(minersRoleID)
         const mc = await fetchMcUUID(unvUser.uuid)
