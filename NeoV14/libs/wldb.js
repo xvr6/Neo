@@ -23,7 +23,7 @@ const unverified = db.define("unverified", {
 		type: DataTypes.STRING,
 		allowNull: false
 	},
-	mc: {
+	uuid: {
 		type: DataTypes.JSON,
 		allowNull: false
 	},
