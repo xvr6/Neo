@@ -1,9 +1,10 @@
 const { unverified, verified, blacklist } = require('../../libs/wldb.js')
-const whitelist = require(`../../../Bungee4/lobby/whitelist.json`)
 const minersRoleID = "1075267520644263956"
 const fs = require("fs")
 const { EmbedBuilder } = require('discord.js')
 const config = require('../../jsons/config.json')
+const RCON = require('rcon')
+
 
 async function wli(interaction) {
     let id = interaction.customId.split("_")[2]
@@ -11,15 +12,24 @@ async function wli(interaction) {
     let unvUser = (await unverified.findByPk(id))
     if (!unvUser) return;
 
-    if (interaction.customId.includes("VERIFY")) {
+    if (interaction.customId.includes("VERIFY")) { // this is where whitelist happens
         //Add the role!
         interaction.member.roles.add(minersRoleID)
         //push data to wl and DB
-        whitelist.push(unvUser.mc)
-        //TODO: change this to using mincraft RCON port
         //https://wiki.vg/RCON 
-        fs.writeFileSync(WLPath, JSON.stringify(whitelist), (err) => { if (err) return console.log(err) }) //write to WL.json file.
-
+        const conn = new RCON('localhost', 25575, 'password');
+        conn.on('auth', async () => {
+            console.log("Authed!")
+            conn.send(`whitelist add ${unvUser.mc.name}`)
+            conn.send(`whitelist reload`)
+        }).on('response', (str) => {
+            console.log(str)
+        }).on('error', (err) => {  
+            console.error(err)
+        }).on('end', () => {
+            console.log("Connection closed.")
+        });
+        return 
         let embed = new EmbedBuilder()
             .setTitle(`Whitelisted user:`)
             .setColor(config.posHex)
