@@ -4,6 +4,7 @@ module.exports = {
     run(client, token) {
         require("../utils/deploycmd.js").run(client, token)
         console.log('Ready!');
+        // TODO: have the bot detect people in 'join me' vcs and automatically do that pipeline
 
         // below is code for leaving guilds.
         //    const Guilds = client.guilds.cache.map(guild => guild.id);
