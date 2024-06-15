@@ -6,7 +6,6 @@ const prod = process.env.TOKEN;
 const dev = process.env.DEVTOKEN;
 const token = dev
 
-//NOTE: nodemon -e js --env-file=.env
 const client = new Discord.Client({
 	disableEveryone: true,
 	failIfNotExists: false,

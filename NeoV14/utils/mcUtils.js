@@ -13,12 +13,13 @@ async function UUIDFormat(uuid) {
 }
 
 async function fetchMc(interaction, username) {
+    let errorStr = `Perhaps check the spelling.\nIf you believe this is an error, please wait a few minutes and try again.`
     return new Promise(async resolve => {
         try {
             var { body, status } = await superagent.get(`https://api.mojang.com/users/profiles/minecraft/${username}`);
-            if (status != 200) return errors.noArg(interaction, `Invalid Username: **${username}**. Perhaps check the spelling.`) //html status code 200 - success
+            if (status != 200) return errors.noArg(interaction, errorStr, `Invalid Username: **${username}**`) //html status code 200 - success
         } catch {
-            return errors.noArg(interaction, `Invalid Username: **${username}**. Perhaps check the spelling.`)
+            return errors.noArg(interaction, errorStr, `Invalid Username: **${username}**`)
         }
         let id = await UUIDFormat(body.id)
         resolve({ uuid: id, name: body.name })
