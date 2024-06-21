@@ -107,7 +107,7 @@ module.exports = {
 				let verifyButtons = new ActionRowBuilder()
 					.addComponents(
 						new ButtonBuilder()
-							.setCustomId(`WL_VERIFY_${interaction.user.id}`)
+							.setCustomId(`WL_VERIFY_${interaction.user.id}`) // TODO: this button needs to, when presed, display errors to admins much like the more verbose handling mentioned before.
 							.setLabel(`✅ | Accept`)
 							.setStyle(ButtonStyle.Success),
 						new ButtonBuilder()
