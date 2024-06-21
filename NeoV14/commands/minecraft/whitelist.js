@@ -50,6 +50,8 @@ module.exports = {
 
 		// no whitelist found for user, whitelists their given username, fcn handles all errors.
 		const playerData = await fetchMc(interaction, interaction.options.getString('username'));
+		//TODO: verbose handling must be done here. Also check if username has already been whitelisted. 
+		//TODO: figure out some way to handle whitelisting better in general with less api calls.
 
 		let embed = new EmbedBuilder()
 			.setTitle(`Would you like to be whitelisted under the username: **${playerData.name}**?`)
