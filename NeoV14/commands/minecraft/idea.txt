@@ -1,0 +1,2 @@
+add a command for server status of all docker container servers
+command will spit out back file (packwiz) and instructions as well as general info about said server
